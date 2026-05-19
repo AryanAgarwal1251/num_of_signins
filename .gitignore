@@ -1,0 +1,6 @@
+#packages and cache
+__pycache__
+ProjectVenv
+
+#environmental files
+.env

@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+httpx
+authlib
+itsdangerous
+supabase
+python-multipart
+jinja2
+starlette

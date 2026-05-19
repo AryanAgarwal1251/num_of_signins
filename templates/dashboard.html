@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 14px;
+      border: 3px solid #e8eaf6;
+    }
+
+    .avatar-placeholder {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #e8eaf6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .email {
+      font-size: 0.88rem;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .counter-box {
+      background: #f5f7ff;
+      border: 1px solid #e0e4ff;
+      border-radius: 10px;
+      padding: 24px 16px;
+      margin-bottom: 28px;
+    }
+
+    .counter-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .counter-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #3f51b5;
+      line-height: 1;
+    }
+
+    .counter-sub {
+      font-size: 0.82rem;
+      color: #aaa;
+      margin-top: 6px;
+    }
+
+    .member-since {
+      font-size: 0.82rem;
+      color: #bbb;
+      margin-bottom: 28px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .btn-logout {
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    .btn-delete {
+      background: #fff0f0;
+      color: #c0392b;
+      border: 1px solid #f5c6cb;
+    }
+
+    .confirm-delete {
+      display: none;
+      background: #fff8f8;
+      border: 1px solid #f5c6cb;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.88rem;
+      color: #c0392b;
+    }
+
+    .confirm-delete p { margin-bottom: 10px; }
+
+    .confirm-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-confirm-yes {
+      background: #c0392b;
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-confirm-no {
+      background: #eee;
+      color: #333;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    {% if user.picture %}
+      <img src="{{ user.picture }}" alt="Profile picture" class="avatar" referrerpolicy="no-referrer"/>
+    {% else %}
+      <div class="avatar-placeholder">👤</div>
+    {% endif %}
+
+    <h1>{{ user.name or "Anonymous" }}</h1>
+    <p class="email">{{ user.email }}</p>
+
+    <div class="counter-box">
+      <div class="counter-label">Total Sign-ins</div>
+      <div class="counter-number">{{ user.login_count }}</div>
+      <div class="counter-sub">
+        {% if user.login_count == 1 %}
+          Welcome! This is your first sign-in.
+        {% else %}
+          You've signed in {{ user.login_count }} times.
+        {% endif %}
+      </div>
+    </div>
+
+    {% if user.created_at %}
+      <p class="member-since">
+        Member since {{ user.created_at[:10] }}
+      </p>
+    {% endif %}
+
+    <div class="actions">
+
+      <!-- Logout -->
+      <form method="post" action="/auth/logout">
+        <button type="submit" class="btn btn-logout">Sign Out</button>
+      </form>
+
+      <!-- Delete account (two-step) -->
+      <button class="btn btn-delete" onclick="document.getElementById('confirm-delete').style.display='block'; this.style.display='none'">
+        Delete My Account
+      </button>
+
+      <div class="confirm-delete" id="confirm-delete">
+        <p>This will permanently delete your account and sign-in history. Are you sure?</p>
+        <div class="confirm-actions">
+          <form method="post" action="/account/delete" style="flex:1">
+            <button type="submit" class="btn btn-confirm-yes">Yes, delete</button>
+          </form>
+          <button class="btn btn-confirm-no" onclick="document.getElementById('confirm-delete').style.display='none'; document.querySelector('.btn-delete').style.display='block'">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
