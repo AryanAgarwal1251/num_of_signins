@@ -1,15 +1,3 @@
-"""
-auth.py
--------
-Google OAuth 2.0 using Authlib's AsyncOAuth2Client.
-
-Flow:
-  1. /auth/login        → redirect to Google consent screen
-  2. Google redirects   → /auth/callback?code=...&state=...
-  3. Exchange code for tokens, fetch userinfo from Google
-  4. Upsert user in DB, store google_id in session
-"""
-
 import os
 import httpx
 from dotenv import load_dotenv

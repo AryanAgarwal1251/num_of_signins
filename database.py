@@ -1,10 +1,5 @@
 """
-database.py
------------
-Single Supabase client used across the whole app.
-All DB operations go through the `supabase` object exported here.
-
-Supabase table expected (run this SQL in Supabase SQL Editor):
+Supabase table created:
 
     CREATE TABLE users (
         id          BIGSERIAL PRIMARY KEY,
