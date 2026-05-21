@@ -5,3 +5,5 @@ ProjectVenv
 #environmental files
 .env
 
+#metadata files
+.DS_Store
