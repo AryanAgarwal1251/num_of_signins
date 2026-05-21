@@ -28,8 +28,7 @@ In your Supabase project, open the **SQL Editor** and run:
 
 ```sql
 CREATE TABLE users (
-    id          BIGSERIAL PRIMARY KEY,
-    google_id   TEXT UNIQUE NOT NULL,
+    google_id   PRIMARY KEY,
     email       TEXT UNIQUE NOT NULL,
     name        TEXT,
     picture     TEXT,
