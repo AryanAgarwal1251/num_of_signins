@@ -17,46 +17,18 @@ num_of_signs/
 │   ├── login.html   # Sign-in page
 │   └── dashboard.html  # Post-login page showing sign-in count
 ├── requirements.txt
-└── .env.example     # Copy to .env and fill in your values
+|-- tests/
+    |-- __init__.py
+    |-- conftest.py
+    |-- test_auth.py
+    |-- test_crud.py
+    |-- test_routes.py
+|-- pytest.ini
 ```
 
 ---
 
-## 1. Supabase Setup
-
-In your Supabase project, open the **SQL Editor** and run:
-
-```sql
-CREATE TABLE users (
-    google_id   PRIMARY KEY,
-    email       TEXT UNIQUE NOT NULL,
-    name        TEXT,
-    picture     TEXT,
-    login_count INTEGER NOT NULL DEFAULT 0,
-    created_at  TIMESTAMPTZ DEFAULT NOW()
-);
-```
-
-Copy the **Project URL** and **service_role** key from:
-`Project Settings → API`
-
----
-
-## 2. Google OAuth Setup
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
-2. Create a project (or use an existing one)
-3. Enable the **Google+ API** (or **People API**)
-4. Create **OAuth 2.0 Client ID** → Web application
-5. Add to **Authorised Redirect URIs**:
-   ```
-   http://localhost:8000/auth/callback
-   ```
-6. Copy the **Client ID** and **Client Secret**
-
----
-
-## 3. Local Setup
+## 2. Local Setup
 
 ```bash
 # Clone / enter the project folder
