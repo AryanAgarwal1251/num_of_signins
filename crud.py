@@ -12,6 +12,9 @@ def get_user_by_google_id(google_id: str) -> dict | None:
     if not google_id:
         return None
 
+    if not isinstance(google_id, str):
+        raise ValueError("google_id must be a string")
+        
     try:
         response = (
             supabase.table("users")
