@@ -20,13 +20,13 @@ from fastapi.testclient import TestClient
 # Patching supabase client before database.py executes
 mock_supabase = MagicMock()
 with patch("supabase.create_client", return_value=mock_supabase):
-    import database
+    import api.database as database
     database.supabase = mock_supabase
 
-    import crud
+    import api.crud as crud
     crud.supabase = mock_supabase
 
-    from main import app
+    from api.main import app
 
 
 # Fake data

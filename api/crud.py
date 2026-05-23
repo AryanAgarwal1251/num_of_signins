@@ -4,7 +4,7 @@ All database read/write operations.
 Uses the Supabase Python client directly and no SQLAlchemy needed.
 """
 
-from database import supabase
+from api.database import supabase
 
 
 def get_user_by_google_id(google_id: str) -> dict | None:

@@ -15,8 +15,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
-import crud
-from auth import get_google_auth_url, exchange_code_for_userinfo
+import api.crud as crud
+from api.auth import get_google_auth_url, exchange_code_for_userinfo
 
 load_dotenv()
 

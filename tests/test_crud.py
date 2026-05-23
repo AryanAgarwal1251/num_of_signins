@@ -17,7 +17,7 @@ import pytest
 from unittest.mock import MagicMock, patch, call
 
 # conftest already patched the env and supabase before import
-import crud
+import api.crud as crud
 from .conftest import FAKE_USER_DB
 
 

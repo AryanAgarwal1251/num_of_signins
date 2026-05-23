@@ -12,7 +12,7 @@ import os
 from unittest.mock import patch, AsyncMock, MagicMock
 from urllib.parse import urlparse, parse_qs
 
-import auth
+import api.auth as auth
 from .conftest import FAKE_USERINFO
 
 # get_google_auth_url
