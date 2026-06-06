@@ -14,6 +14,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
+from httpx import ConnectError
 
 import api.crud as crud
 from api.auth import get_google_auth_url, exchange_code_for_userinfo
@@ -76,6 +77,7 @@ async def auth_callback(request: Request, code: str = "", state: str = "", error
 
     try:
         userinfo = await exchange_code_for_userinfo(code)
+
     except Exception:
         return RedirectResponse("/?error=token_exchange_failed")
 
@@ -85,7 +87,11 @@ async def auth_callback(request: Request, code: str = "", state: str = "", error
     picture   = userinfo.get("picture", "")
 
     # Upsert: create new user OR increment existing user's counter
-    existing = crud.get_user_by_google_id(google_id)
+    try:
+        existing = crud.get_user_by_google_id(google_id)
+    
+    except httpx.ConnectError:
+        return RedirectResponse("?/error=db_dormant_not_active")
 
     if existing is None:
         user = crud.create_user(google_id, email, name, picture)

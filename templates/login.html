@@ -115,6 +115,8 @@
       <div class="error-msg">Security check failed. Please try again.</div>
     {% elif error == "token_exchange_failed" %}
       <div class="error-msg">Could not complete sign-in. Please try again.</div>
+    {% elif error == "db_dormant_not_active" %}
+      </div class="error-msg">Database slept due to inactivity. Please wait while we restart the db.</div>
     {% elif error %}
       <div class="error-msg">Sign-in was cancelled or failed.</div>
     {% endif %}

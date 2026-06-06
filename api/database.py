@@ -15,7 +15,6 @@ Supabase table created:
 import os
 from dotenv import load_dotenv
 from supabase import create_client, Client
-
 load_dotenv()
 
 SUPABASE_URL: str = os.environ["SUPABASE_URL"]
